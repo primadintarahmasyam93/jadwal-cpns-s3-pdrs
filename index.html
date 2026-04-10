@@ -98,6 +98,7 @@
             margin-top: 5px;
             display: none;
             border-left: 2px solid #38bdf8;
+            white-space: pre-wrap;
         }
     </style>
 </head>
@@ -119,11 +120,11 @@
             </div>
             <div class="glass-card" style="border-left: 4px solid #FFF44F;">
                 <div class="day-title">Selasa • Academic Deep Work</div>
-                <div class="activity"><span class="time">Pagi</span>Paper | <span class="time">Siang</span>S3 Research | <span class="time">Sore</span>Sport</div>
+                <div class="activity"><span class="time">Pagi</span>Paper | <span class="time">Siang</span>S3 Res | <span class="time">Sore</span>Sport</div>
             </div>
             <div class="glass-card" style="border-left: 4px solid #228B22;">
                 <div class="day-title">Rabu • Domestic & Career Research</div>
-                <div class="activity"><span class="time">Pagi</span>Laundry Time | <span class="time">Siang</span>Profile Update & Career Research | <span class="time">Sore</span>Groceries</div>
+                <div class="activity"><span class="time">Pagi</span>Cuci Baju | <span class="time">Siang</span>Profile Update & Career Research | <span class="time">Sore</span>Belanja</div>
             </div>
             <div class="glass-card" style="border-left: 4px solid #8A0303;">
                 <div class="day-title">Kamis • Language & Research </div>
@@ -135,11 +136,11 @@
             </div>
             <div class="glass-card" style="border-left: 4px solid #f59e0b;">
                 <div class="day-title">Sabtu • House Care</div>
-                <div class="activity"><span class="time">Pagi</span>Sport | <span class="time">Siang</span>Laundry Time | <span class="time">Sore</span>Rest</div>
+                <div class="activity"><span class="time">Pagi</span>Sport | <span class="time">Siang</span>Cuci | <span class="time">Sore</span>Rest</div>
             </div>
             <div class="glass-card" style="border-left: 4px solid #ec4899;">
                 <div class="day-title">Minggu • Family Time</div>
-                <div class="activity"><span class="time">Pagi</span>Sport | <span class="time">Siang</span>Family | <span class="time">Sore</span>Groceries</div>
+                <div class="activity"><span class="time">Pagi</span>Sport | <span class="time">Siang</span>Family | <span class="time">Sore</span>Rest</div>
             </div>
         </div>
 
@@ -185,48 +186,38 @@
     </div>
 
     <script>
-        // MASUKKAN API KEY DI SINI! Jika kosong, AI tidak akan merespon.
+        // API Key sudah terpasang
         const apiKey = "AIzaSyBASpWgU0JYrjAuWdgCrYu3txG2XhRrP8c"; 
         
-        // Versi model diperbarui ke versi stabil yang valid
-        const baseUrl = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent";
+        // Menggunakan v1 (Versi stabil)
+        const baseUrl = "https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent";
 
         async function callGemini(prompt, systemMsg = "Kamu adalah asisten produktivitas cerdas.") {
-            if (!apiKey || apiKey === "API_KEY_KAMU_DISINI") {
-                return "Error: API Key belum diisi. Silakan masukkan API Key Gemini di kode HTML.";
-            }
-
-            let retries = 0;
-            while (retries < 3) {
-                try {
-                    const response = await fetch(`${baseUrl}?key=${apiKey}`, {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({
-                            contents: [{ parts: [{ text: prompt }] }],
-                            systemInstruction: { parts: [{ text: systemMsg }] }
-                        })
-                    });
-                    
-                    const data = await response.json();
-                    
-                    // Menangani pesan error dari API (misal: API key salah/limit habis)
-                    if (!response.ok) {
-                        return `API Error: ${data.error?.message || 'Gagal terhubung'}`;
-                    }
-
-                    return data.candidates?.[0]?.content?.parts?.[0]?.text || "Maaf, AI tidak memberikan respon.";
-                } catch (e) {
-                    retries++;
-                    await new Promise(r => setTimeout(r, Math.pow(2, retries) * 1000));
+            try {
+                const response = await fetch(`${baseUrl}?key=${apiKey}`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        contents: [{ parts: [{ text: prompt }] }],
+                        systemInstruction: { parts: [{ text: systemMsg }] }
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (!response.ok) {
+                    return `Error: ${data.error?.message || 'Gagal memanggil AI'}`;
                 }
+
+                return data.candidates?.[0]?.content?.parts?.[0]?.text || "AI tidak memberikan respon.";
+            } catch (e) {
+                return "Gagal terhubung ke internet.";
             }
-            return "Koneksi terputus. Tetap fokus!";
         }
 
         const showLoading = (id, show) => {
             const spinner = document.getElementById(`spin-${id}`);
-            if (spinner) spinner.style.display = show ? 'block' : 'none';
+            if (spinner) spinner.style.display = show ? 'inline-block' : 'none';
         };
 
         // Fitur: Tutor Kilat
@@ -235,9 +226,10 @@
             if (!input) return;
             const box = document.getElementById('tutor-box');
             showLoading('tutor', true);
+            box.style.display = 'none';
             
             const res = await callGemini(
-                `Jelaskan konsep ini secara singkat (maks 2 kalimat) untuk persiapan CPNS atau S3: ${input}`,
+                `Jelaskan konsep ini secara singkat (maks 3 kalimat) untuk persiapan CPNS atau riset S3: ${input}`,
                 "Kamu adalah dosen pembimbing S3 sekaligus tutor CPNS yang sangat cerdas namun komunikatif."
             );
             box.innerText = res;
@@ -249,6 +241,8 @@
         document.getElementById('btn-paper').addEventListener('click', async () => {
             const box = document.getElementById('paper-box');
             showLoading('paper', true);
+            box.style.display = 'none';
+            
             const res = await callGemini("Berikan 2 ide topik riset unik atau sudut pandang baru untuk penulisan paper terkait lingkungan/GIS untuk level S3.");
             box.innerText = res;
             box.style.display = 'block';
@@ -260,7 +254,8 @@
             const box = document.getElementById('energy-box');
             box.innerText = "Menganalisis...";
             box.style.display = 'block';
-            const res = await callGemini(`Kondisi saya: ${level}. Berikan 1 saran aktivitas singkat (maks 10 kata) agar tetap produktif atau cara istirahat yang efektif sesuai jadwal saya.`);
+            
+            const res = await callGemini(`Kondisi saya: ${level}. Berikan 1 saran aktivitas singkat (maks 15 kata) agar tetap produktif atau cara istirahat yang efektif.`);
             box.innerText = res;
         }
     </script>
