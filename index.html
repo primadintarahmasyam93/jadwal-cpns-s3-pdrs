@@ -7,211 +7,84 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #020617;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            min-height: 100vh;
-            color: #f8fafc;
-        }
-        .wallpaper {
-            width: 100vw;
-            min-height: 100vh;
-            max-width: 450px;
-            background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
-            padding: 30px 20px;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-        }
-        .glass-card {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 16px;
-            padding: 12px 16px;
-            margin-bottom: 8px;
-            transition: transform 0.2s;
-        }
-        .glass-card:hover {
-            transform: scale(1.02);
-        }
-        .day-title {
-            font-size: 0.7rem;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 0.12em;
-            color: #38bdf8;
-            margin-bottom: 2px;
-        }
-        .activity {
-            font-size: 0.85rem;
-            color: #e2e8f0;
-            line-height: 1.4;
-        }
-        .time {
-            color: #94a3b8;
-            font-weight: 600;
-            margin-right: 6px;
-            font-size: 0.75rem;
-        }
-        .ai-section {
-            background: rgba(15, 23, 42, 0.6);
-            border: 1px solid rgba(56, 189, 248, 0.3);
-            border-radius: 20px;
-            padding: 18px;
-            margin-top: 15px;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
-        }
-        .ai-btn {
-            width: 100%;
-            font-size: 0.75rem;
-            font-weight: 700;
-            padding: 10px;
-            border-radius: 10px;
-            transition: all 0.2s;
-            margin-bottom: 8px;
-            text-align: left;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-        .loading-spinner {
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            border-top: 2px solid white;
-            width: 12px;
-            height: 12px;
-            animation: spin 1s linear infinite;
-            display: none;
-        }
+        body { font-family: 'Inter', sans-serif; background-color: #020617; margin: 0; display: flex; justify-content: center; min-height: 100vh; color: #f8fafc; }
+        .wallpaper { width: 100vw; min-height: 100vh; max-width: 450px; background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%); padding: 30px 20px; display: flex; flex-direction: column; position: relative; }
+        .glass-card { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 16px; padding: 12px 16px; margin-bottom: 8px; transition: transform 0.2s; }
+        .day-title { font-size: 0.7rem; font-weight: 800; text-transform: uppercase; color: #38bdf8; margin-bottom: 2px; }
+        .activity { font-size: 0.85rem; color: #e2e8f0; line-height: 1.4; }
+        .time { color: #94a3b8; font-weight: 600; margin-right: 6px; font-size: 0.75rem; }
+        .ai-section { background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(56, 189, 248, 0.3); border-radius: 20px; padding: 18px; margin-top: 15px; }
+        .ai-btn { width: 100%; font-size: 0.75rem; font-weight: 700; padding: 10px; border-radius: 10px; transition: all 0.2s; margin-bottom: 8px; text-align: left; display: flex; align-items: center; justify-content: space-between; }
+        .loading-spinner { border: 2px solid rgba(255, 255, 255, 0.3); border-radius: 50%; border-top: 2px solid white; width: 12px; height: 12px; animation: spin 1s linear infinite; display: none; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        
-        .response-box {
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: 8px;
-            padding: 10px;
-            font-size: 0.75rem;
-            color: #cbd5e1;
-            margin-top: 5px;
-            display: none;
-            border-left: 2px solid #38bdf8;
-            white-space: pre-wrap;
-        }
+        .response-box { background: rgba(0, 0, 0, 0.2); border-radius: 8px; padding: 10px; font-size: 0.75rem; color: #cbd5e1; margin-top: 5px; display: none; border-left: 2px solid #38bdf8; white-space: pre-wrap; }
     </style>
 </head>
 <body>
-
     <div class="wallpaper">
         <div class="mb-5 text-center">
             <h1 class="text-white text-2xl font-extrabold tracking-tighter italic">MY JOURNEY</h1>
             <div class="flex justify-center gap-2 mt-1">
-                <span class="bg-sky-500/20 text-sky-400 text-[0.6rem] px-2 py-0.5 rounded-full border border-sky-500/30 font-bold uppercase tracking-widest">CPNS 2026</span>
-                <span class="bg-purple-500/20 text-purple-400 text-[0.6rem] px-2 py-0.5 rounded-full border border-purple-500/30 font-bold uppercase tracking-widest">S3 TARGET</span>
+                <span class="bg-sky-500/20 text-sky-400 text-[0.6rem] px-2 py-0.5 rounded-full border border-sky-500/30 font-bold uppercase">CPNS 2026</span>
+                <span class="bg-purple-500/20 text-purple-400 text-[0.6rem] px-2 py-0.5 rounded-full border border-purple-500/30 font-bold uppercase">S3 TARGET</span>
             </div>
         </div>
 
         <div id="schedule-list" class="space-y-1">
-            <div class="glass-card" style="border-left: 4px solid #38bdf8;">
-                <div class="day-title">Senin • Full CPNS Mode</div>
-                <div class="activity"><span class="time">Pagi</span>Latihan TIU | <span class="time">Siang</span>TKP/TWK | <span class="time">Sore</span>TPQ</div>
-            </div>
-            <div class="glass-card" style="border-left: 4px solid #FFF44F;">
-                <div class="day-title">Selasa • Academic Deep Work</div>
-                <div class="activity"><span class="time">Pagi</span>Paper | <span class="time">Siang</span>S3 Res | <span class="time">Sore</span>Sport</div>
-            </div>
-            <div class="glass-card" style="border-left: 4px solid #228B22;">
-                <div class="day-title">Rabu • Domestic & Career Research</div>
-                <div class="activity"><span class="time">Pagi</span>Cuci Baju | <span class="time">Siang</span>Profile Update & Career Research | <span class="time">Sore</span>Belanja</div>
-            </div>
-            <div class="glass-card" style="border-left: 4px solid #8A0303;">
-                <div class="day-title">Kamis • Language & Research </div>
-                <div class="activity"><span class="time">Pagi</span>IELTS | <span class="time">Siang</span>Paper | <span class="time">Sore</span>TPQ</div>
-            </div>
-            <div class="glass-card" style="border-left: 4px solid #10b981;">
-                <div class="day-title">Jumat • Review & CPNS Fun</div>
-                <div class="activity"><span class="time">Pagi</span>Sport | <span class="time">Siang</span>Study with Arinda | <span class="time">Sore</span>Rest</div>
-            </div>
-            <div class="glass-card" style="border-left: 4px solid #f59e0b;">
-                <div class="day-title">Sabtu • House Care</div>
-                <div class="activity"><span class="time">Pagi</span>Sport | <span class="time">Siang</span>Cuci | <span class="time">Sore</span>Rest</div>
-            </div>
-            <div class="glass-card" style="border-left: 4px solid #ec4899;">
-                <div class="day-title">Minggu • Family Time</div>
-                <div class="activity"><span class="time">Pagi</span>Sport | <span class="time">Siang</span>Family | <span class="time">Sore</span>Rest</div>
-            </div>
+            <div class="glass-card" style="border-left: 4px solid #38bdf8;"><div class="day-title">Senin • CPNS Mode</div><div class="activity"><span class="time">Pagi</span>Latihan TIU | <span class="time">Siang</span>TKP/TWK</div></div>
+            <div class="glass-card" style="border-left: 4px solid #FFF44F;"><div class="day-title">Selasa • Academic</div><div class="activity"><span class="time">Pagi</span>Paper | <span class="time">Siang</span>S3 Res</div></div>
+            <div class="glass-card" style="border-left: 4px solid #228B22;"><div class="day-title">Rabu • Domestic</div><div class="activity"><span class="time">Pagi</span>Cuci Baju | <span class="time">Siang</span>Career Res</div></div>
+            <div class="glass-card" style="border-left: 4px solid #8A0303;"><div class="day-title">Kamis • Language</div><div class="activity"><span class="time">Pagi</span>IELTS | <span class="time">Siang</span>Paper</div></div>
+            <div class="glass-card" style="border-left: 4px solid #10b981;"><div class="day-title">Jumat • Review</div><div class="activity"><span class="time">Siang</span>Study with Arinda | <span class="time">Sore</span>Rest</div></div>
         </div>
 
         <div class="ai-section">
-            <h2 class="text-white text-xs font-black mb-3 flex items-center gap-2 tracking-widest uppercase opacity-80">
-                ✨ Gemini Smart Assistant
-            </h2>
-            
+            <h2 class="text-white text-xs font-black mb-3 tracking-widest uppercase opacity-80">✨ Gemini Smart Assistant</h2>
             <div class="mb-3">
                 <div class="flex gap-2 mb-2">
-                    <input id="tutor-input" class="flex-1 bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-[0.7rem] text-white outline-none focus:border-sky-500" placeholder="Tanya konsep sulit (ex: Silogisme)...">
-                    <button id="btn-tutor" class="bg-sky-600 px-3 rounded-lg text-white font-bold text-[0.7rem] hover:bg-sky-500 flex items-center gap-1">
-                        <span class="loading-spinner" id="spin-tutor"></span> ✨ Tutor
-                    </button>
+                    <input id="tutor-input" class="flex-1 bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-[0.7rem] text-white outline-none" placeholder="Tanya konsep (ex: Silogisme)...">
+                    <button id="btn-tutor" class="bg-sky-600 px-3 rounded-lg text-white font-bold text-[0.7rem] hover:bg-sky-500 flex items-center gap-1"><span class="loading-spinner" id="spin-tutor"></span> ✨ Tutor</button>
                 </div>
                 <div id="tutor-box" class="response-box"></div>
             </div>
-
             <div class="mb-3">
-                <button id="btn-paper" class="ai-btn bg-purple-600/20 text-purple-300 border border-purple-500/30 hover:bg-purple-600/30">
-                    <span>✨ Ide Topik Paper / S3 Hari Ini</span>
-                    <span class="loading-spinner" id="spin-paper"></span>
-                </button>
+                <button id="btn-paper" class="ai-btn bg-purple-600/20 text-purple-300 border border-purple-500/30 hover:bg-purple-600/30"><span>✨ Ide Topik Paper Hari Ini</span><span class="loading-spinner" id="spin-paper"></span></button>
                 <div id="paper-box" class="response-box" style="border-left-color: #a855f7;"></div>
             </div>
-
             <div>
-                <p class="text-[0.6rem] text-slate-400 mb-1 font-bold uppercase">Bagaimana energimu sekarang?</p>
+                <p class="text-[0.6rem] text-slate-400 mb-1 font-bold uppercase">Energi Sekarang?</p>
                 <div class="flex gap-2">
-                    <button onclick="analyzeEnergy('Sangat Lelah')" class="flex-1 py-1 bg-rose-500/20 border border-rose-500/30 rounded text-[0.6rem] hover:bg-rose-500/40">Lelah</button>
-                    <button onclick="analyzeEnergy('Biasa Saja')" class="flex-1 py-1 bg-amber-500/20 border border-amber-500/30 rounded text-[0.6rem] hover:bg-amber-500/40">Biasa</button>
-                    <button onclick="analyzeEnergy('Semangat')" class="flex-1 py-1 bg-emerald-500/20 border border-emerald-500/30 rounded text-[0.6rem] hover:bg-emerald-500/40">On Fire!</button>
+                    <button onclick="analyzeEnergy('Lelah')" class="flex-1 py-1 bg-rose-500/20 border border-rose-500/30 rounded text-[0.6rem]">Lelah</button>
+                    <button onclick="analyzeEnergy('Biasa')" class="flex-1 py-1 bg-amber-500/20 border border-amber-500/30 rounded text-[0.6rem]">Biasa</button>
+                    <button onclick="analyzeEnergy('Semangat')" class="flex-1 py-1 bg-emerald-500/20 border border-emerald-500/30 rounded text-[0.6rem]">On Fire!</button>
                 </div>
                 <div id="energy-box" class="response-box" style="border-left-color: #fbbf24;"></div>
             </div>
         </div>
-
-        <div class="mt-auto pt-6 text-center">
-            <p id="footer-quote" class="text-slate-500 text-[0.6rem] italic uppercase tracking-[0.2em] opacity-60">
-                Small steps every day lead to big results.
-            </p>
-        </div>
     </div>
 
     <script>
-        // API Key sudah terpasang
         const apiKey = "AIzaSyBASpWgU0JYrjAuWdgCrYu3txG2XhRrP8c"; 
-        
-        // Menggunakan v1 (Versi stabil)
         const baseUrl = "https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent";
 
-        async function callGemini(prompt, systemMsg = "Kamu adalah asisten produktivitas cerdas.") {
+        async function callGemini(prompt, systemMsg = "") {
             try {
+                // Menggabungkan systemMsg ke dalam prompt utama agar kompatibel dengan v1
+                const finalPrompt = systemMsg ? `${systemMsg}\n\nPertanyaan: ${prompt}` : prompt;
+
                 const response = await fetch(`${baseUrl}?key=${apiKey}`, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
-                        contents: [{ parts: [{ text: prompt }] }],
-                        systemInstruction: { parts: [{ text: systemMsg }] }
+                        contents: [{ parts: [{ text: finalPrompt }] }]
                     })
                 });
                 
                 const data = await response.json();
-                
-                if (!response.ok) {
-                    return `Error: ${data.error?.message || 'Gagal memanggil AI'}`;
-                }
-
-                return data.candidates?.[0]?.content?.parts?.[0]?.text || "AI tidak memberikan respon.";
+                if (!response.ok) return `Error: ${data.error?.message || 'Gagal'}`;
+                return data.candidates?.[0]?.content?.parts?.[0]?.text || "No response";
             } catch (e) {
-                return "Gagal terhubung ke internet.";
+                return "Koneksi gagal.";
             }
         }
 
@@ -220,42 +93,26 @@
             if (spinner) spinner.style.display = show ? 'inline-block' : 'none';
         };
 
-        // Fitur: Tutor Kilat
         document.getElementById('btn-tutor').addEventListener('click', async () => {
             const input = document.getElementById('tutor-input').value;
             if (!input) return;
             const box = document.getElementById('tutor-box');
-            showLoading('tutor', true);
-            box.style.display = 'none';
-            
-            const res = await callGemini(
-                `Jelaskan konsep ini secara singkat (maks 3 kalimat) untuk persiapan CPNS atau riset S3: ${input}`,
-                "Kamu adalah dosen pembimbing S3 sekaligus tutor CPNS yang sangat cerdas namun komunikatif."
-            );
-            box.innerText = res;
-            box.style.display = 'block';
-            showLoading('tutor', false);
+            showLoading('tutor', true); box.style.display = 'none';
+            const res = await callGemini(input, "Kamu adalah tutor CPNS dan dosen S3. Jelaskan konsep ini maksimal 3 kalimat.");
+            box.innerText = res; box.style.display = 'block'; showLoading('tutor', false);
         });
 
-        // Fitur: Ide Paper
         document.getElementById('btn-paper').addEventListener('click', async () => {
             const box = document.getElementById('paper-box');
-            showLoading('paper', true);
-            box.style.display = 'none';
-            
-            const res = await callGemini("Berikan 2 ide topik riset unik atau sudut pandang baru untuk penulisan paper terkait lingkungan/GIS untuk level S3.");
-            box.innerText = res;
-            box.style.display = 'block';
-            showLoading('paper', false);
+            showLoading('paper', true); box.style.display = 'none';
+            const res = await callGemini("Berikan 2 ide topik riset GIS/Lingkungan untuk S3.", "Berikan jawaban singkat dan padat.");
+            box.innerText = res; box.style.display = 'block'; showLoading('paper', false);
         });
 
-        // Fitur: Analisis Energi
         async function analyzeEnergy(level) {
             const box = document.getElementById('energy-box');
-            box.innerText = "Menganalisis...";
-            box.style.display = 'block';
-            
-            const res = await callGemini(`Kondisi saya: ${level}. Berikan 1 saran aktivitas singkat (maks 15 kata) agar tetap produktif atau cara istirahat yang efektif.`);
+            box.innerText = "Menganalisis..."; box.style.display = 'block';
+            const res = await callGemini(`Kondisi saya: ${level}. Berikan 1 saran aktivitas singkat.`, "Gunakan gaya bahasa motivator yang ramah.");
             box.innerText = res;
         }
     </script>
